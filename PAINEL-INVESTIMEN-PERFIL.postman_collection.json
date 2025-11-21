@@ -1,0 +1,362 @@
+{
+													{
+														"name": "Histórico de Investimentos",
+														"request": {
+															"method": "GET",
+															"header": [],
+															"url": {
+																"raw": "{{base_url}}/investimentos/123",
+																"host": ["{{base_url}}"],
+																"path": ["investimentos", "123"]
+															},
+															"description": "Histórico de Investimentos.\n\nExemplo de resposta:\n\n[\n  {\n    \"id\": 1,\n    \"tipo\": \"CDB\",\n    \"valor\": 5000.00,\n    \"rentabilidade\": 0.12,\n    \"data\": \"2025-01-15\"\n  },\n  {\n    \"id\": 2,\n    \"tipo\": \"Fundo Multimercado\",\n    \"valor\": 3000.00,\n    \"rentabilidade\": 0.08,\n    \"data\": \"2025-03-10\"\n  }\n]"
+														},
+														"response": []
+													},
+											{
+												"name": "Produtos Recomendados",
+												"request": {
+													"method": "GET",
+													"header": [],
+													"url": {
+														"raw": "{{base_url}}/produtos-recomendados/Moderado",
+														"host": ["{{base_url}}"],
+														"path": ["produtos-recomendados", "Moderado"]
+													},
+													"description": "Produtos Recomendados.\n\nExemplo de resposta:\n\n[\n  {\n    \"id\": 101,\n    \"nome\": \"CDB Caixa 2026\",\n    \"tipo\": \"CDB\",\n    \"rentabilidade\": 0.12,\n    \"risco\": \"Baixo\"\n  },\n  {\n    \"id\": 102,\n    \"nome\": \"Fundo XPTO\",\n    \"tipo\": \"Fundo\",\n    \"rentabilidade\": 0.18,\n    \"risco\": \"Alto\"\n  }\n]"
+												},
+												"response": []
+											},
+									{
+										"name": "Perfil de Risco",
+										"request": {
+											"method": "GET",
+											"header": [],
+											"url": {
+												"raw": "{{base_url}}/perfil-risco/123",
+												"host": ["{{base_url}}"],
+												"path": ["perfil-risco", "123"]
+											},
+											"description": "Perfil de Risco.\n\nExemplo de resposta:\n\n{\n  \"clienteId\": 123,\n  \"perfil\": \"Moderado\",\n  \"pontuacao\": 65,\n  \"descricao\": \"Perfil equilibrado entre segurança e rentabilidade.\"\n}"
+										},
+										"response": []
+									},
+							{
+								"name": "Dados de Telemetria",
+								"request": {
+									"method": "GET",
+									"header": [],
+									"url": {
+										"raw": "{{base_url}}/telemetria",
+										"host": ["{{base_url}}"],
+										"path": ["telemetria"]
+									},
+									"description": "Dados de Telemetria.\n\nExemplo de resposta:\n\n{\n  \"servicos\": [\n    {\n      \"nome\": \"simular-investimento\",\n      \"quantidadeChamadas\": 120,\n      \"mediaTempoRespostaMs\": 250\n    },\n    {\n      \"nome\": \"perfil-risco\",\n      \"quantidadeChamadas\": 80,\n      \"mediaTempoRespostaMs\": 180\n    }\n  ],\n  \"periodo\": {\n    \"inicio\": \"2025-10-01\",\n    \"fim\": \"2025-10-31\"\n  }\n}"
+								},
+								"response": []
+							},
+					{
+						"name": "Valores Simulados por Produto e Dia",
+						"request": {
+							"method": "GET",
+							"header": [],
+							"url": {
+								"raw": "{{base_url}}/simulacoes/por-produto-dia",
+								"host": ["{{base_url}}"],
+								"path": ["simulacoes", "por-produto-dia"]
+							},
+							"description": "Valores Simulados por Produto e Dia.\n\nExemplo de resposta:\n\n[\n  {\n    \"produto\": \"CDB Caixa 2026\",\n    \"data\": \"2025-10-30\",\n    \"quantidadeSimulacoes\": 15,\n    \"mediaValorFinal\": 11050.00\n  },\n  {\n    \"produto\": \"Fundo XPTO\",\n    \"data\": \"2025-10-30\",\n    \"quantidadeSimulacoes\": 8,\n    \"mediaValorFinal\": 5700.00\n  }\n]"
+						},
+						"response": []
+					},
+			{
+				"name": "Simular Investimento",
+				"request": {
+					"method": "POST",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"body": {
+						"mode": "raw",
+						"raw": "{\n  \"clienteId\": 123,\n  \"valor\": 10000.00,\n  \"prazoMeses\": 12,\n  \"tipoProduto\": \"CDB\"\n}"
+					},
+					"url": {
+						"raw": "{{base_url}}/simular-investimento",
+						"host": ["{{base_url}}"],
+						"path": ["simular-investimento"]
+					},
+					"description": "Solicitação de Simulação de Investimento.\n\nRequest:\n{\n  \"clienteId\": 123,\n  \"valor\": 10000.00,\n  \"prazoMeses\": 12,\n  \"tipoProduto\": \"CDB\"\n}\n\nResponse:\n{\n  \"produtoValidado\": {\n    \"id\": 101,\n    \"nome\": \"CDB Caixa 2026\",\n    \"tipo\": \"CDB\",\n    \"rentabilidade\": 0.12,\n    \"risco\": \"Baixo\"\n  },\n  \"resultadoSimulacao\": {\n    \"valorFinal\": 11200.00,\n    \"rentabilidadeEfetiva\": 0.12,\n    \"prazoMeses\": 12\n  },\n  \"dataSimulacao\": \"2025-10-31T14:00:00Z\"\n}"
+				},
+				"response": []
+			},
+	"info": {
+		"name": "Painel de Investimentos - Quarkus API",
+		"description": "API de Painel de Investimentos migrada para Quarkus 3.8.6 com autenticação JWT",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{jwt_token}}",
+				"type": "string"
+			}
+		]
+	},
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8081",
+			"type": "string"
+		},
+		{
+				{
+					"name": "Login Admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 200) {",
+									"    var jsonData = pm.response.json();",
+									"    pm.collectionVariables.set(\"jwt_token\", jsonData.token);",
+									"    console.log(\"Token JWT salvo: \" + jsonData.token);",
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"admin\",\n    \"password\": \"password123\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/login",
+							"host": ["{{base_url}}"],
+							"path": ["auth", "login"]
+						}
+					},
+					"description": "Login com usuário ADMIN. O token JWT é automaticamente salvo na variável jwt_token."
+				},
+				{
+					"name": "Histórico de Simulações Realizadas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/simulacoes",
+							"host": ["{{base_url}}"],
+							"path": ["simulacoes"]
+						},
+						"description": "Retorna o histórico de simulações realizadas.\n\nExemplo de resposta:\n\n[\n  {\n    \"id\": 1,\n    \"clienteId\": 123,\n    \"produto\": \"CDB Caixa 2026\",\n    \"valorInvestido\": 10000.00,\n    \"valorFinal\": 11200.00,\n    \"prazoMeses\": 12,\n    \"dataSimulacao\": \"2025-10-31T14:00:00Z\"\n  },\n  {\n    \"id\": 2,\n    \"clienteId\": 123,\n    \"produto\": \"Fundo XPTO\",\n    \"valorInvestido\": 5000.00,\n    \"valorFinal\": 5800.00,\n    \"prazoMeses\": 6,\n    \"dataSimulacao\": \"2025-09-15T10:30:00Z\"\n  }\n]"
+					},
+					"response": []
+				}
+								"auth",
+								"login"
+							]
+						},
+						"description": "Login com usuário ADMIN. O token JWT é automaticamente salvo na variável jwt_token."
+					},
+					"response": []
+				},
+				{
+					"name": "Login User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+							},
+							"response": []
+						},
+						{
+							"name": "Public Endpoints",
+									"if (pm.response.code === 200) {",
+									"    var jsonData = pm.response.json();",
+									"    pm.collectionVariables.set(\"jwt_token\", jsonData.token);",
+									"    console.log(\"Token JWT salvo: \" + jsonData.token);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"user\",\n    \"password\": \"password123\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						},
+						"description": "Login com usuário USER (role limitada). O token JWT é automaticamente salvo."
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoints de autenticação"
+		},
+		{
+			"name": "Secured Endpoints",
+			"item": [
+				{
+					"name": "Get Profile",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/secure/profile",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"secure",
+								"profile"
+							]
+						},
+						"description": "Retorna o perfil do usuário autenticado (USER ou ADMIN)"
+					},
+					"response": []
+				},
+				{
+					"name": "Admin Area",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/secure/admin",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"secure",
+								"admin"
+							]
+						},
+						"description": "Área restrita apenas para usuários com role ADMIN"
+					},
+					"response": []
+				},
+				{
+					"name": "User Area",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/secure/user",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"secure",
+								"user"
+							]
+						},
+						"description": "Área do usuário (USER ou ADMIN)"
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoints protegidos com JWT",
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{jwt_token}}",
+						"type": "string"
+					}
+				]
+			}
+		},
+		{
+			"name": "Public Endpoints",
+			"item": [
+				{
+					"name": "Health Check",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/health-test",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"health-test"
+							]
+						},
+						"description": "Verifica o status da API"
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoints públicos (não requerem autenticação)"
+		},
+		{
+			"name": "Documentation",
+			"item": [
+				{
+					"name": "OpenAPI Spec",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/openapi",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"openapi"
+							]
+						},
+						"description": "Retorna a especificação OpenAPI 3.0 da API"
+					},
+					"response": []
+				}
+			],
+			"description": "Documentação da API"
+		}
+	]
+}
