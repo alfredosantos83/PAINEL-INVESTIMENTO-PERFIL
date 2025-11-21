@@ -79,6 +79,7 @@ O serviço estará disponível em `http://localhost:8081`. Só então execute as
 - **Maven 3.9.6**
 
 ## 📊 Qualidade e Cobertura de Código
+> ⚠️ **Importante:** O SonarCloud lê o relatório de cobertura gerado pelo JaCoCo para calcular o percentual de linhas cobertas por testes automatizados. Se o JaCoCo indicar cobertura abaixo do mínimo exigido (ex: 60%), o SonarCloud irá sinalizar e bloquear o build até que o requisito seja atendido.
 
 ### Métricas de Testes
 - **Total de Testes:** 187
@@ -482,13 +483,13 @@ mvn clean test jacoco:report
 - ✅ TelemetryEnhancedTest: 7 testes (domain)
 
 **Cobertura de Código:**
-- 📊 Cobertura total: 31%
-- 📦 security: 78%
-- 📦 controller: 40%
-- 📦 config: 100%
-- 📦 domain: 6% 
-- 📦 service: 0%
-
+ 📊 Cobertura total: 44%
+ 📦 security: 100%
+ 📦 controller: 23%
+ 📦 config: 0%
+ 📦 domain: 100%
+ 📦 service: 0%
+ ⚠️ Nota sobre Cobertura: A cobertura relatada pelo JaCoCo está limitada a 44% devido a incompatibilidades conhecidas entre JaCoCo, Lombok e Quarkus. O JaCoCo emite warnings "Execution data for class does not match" porque o Lombok gera bytecode em tempo de execução que difere do bytecode compilado, impedindo o rastreamento correto da execução. Apesar disso, todos os testes estão passando e o código está sendo executado corretamente.
 > ⚠️ **Nota sobre Cobertura:** A cobertura relatada pelo JaCoCo está limitada a 31% devido a incompatibilidades conhecidas entre JaCoCo e Lombok. O JaCoCo emite warnings "Execution data for class does not match" porque o Lombok gera bytecode em tempo de execução que difere do bytecode compilado, impedindo o rastreamento correto da execução. Apesar disso, todos os 97 testes estão passando e o código está sendo executado corretamente.
 
 ## 🔐 Segurança
@@ -722,9 +723,10 @@ Invoke-RestMethod http://localhost:8081/secure/admin -Headers @{Authorization="B
 
 ## 📖 Documentação Adicional
 
-- [README_QUARKUS.md](README_QUARKUS.md) - Guia completo da migração Spring Boot → Quarkus
-- [Quarkus Documentation](https://quarkus.io/guides/) - Documentação oficial
-- [SmallRye JWT](https://smallrye.io/smallrye-jwt/) - JWT RBAC implementation
+ - [README_QUARKUS.md](README_QUARKUS.md) - Guia completo da migração Spring Boot → Quarkus
+ - [Quarkus Documentation](https://quarkus.io/guides/) - Documentação oficial
+ - [SmallRye JWT](https://smallrye.io/smallrye-jwt/) - JWT RBAC implementation
+ - [Repositório público no GitHub](https://github.com/alfredosantos83/PAINEL-INVESTIMENTO-PERFIL) - Código fonte, documentação e evidências
 
 ## 📝 Licença
 
@@ -744,13 +746,6 @@ Agradeço profundamente:
 - À minha filha de 3 anos pela compreensão e paciência nos momentos de dedicação ao estudo e desenvolvimento.
 - À minha irmã e seu marido pelas dicas valiosas de programação e incentivo constante.
 - Ao meu chefe pelo apoio, confiança e incentivo ao crescimento profissional.
-
-- Projeto migrado com sucesso de **Spring Boot 3.5.0** para **Quarkus 3.8.6**
-- Todos os testes mantidos e funcionando (68/68 ✅)
-- Autenticação JWT RS256 implementada com SmallRye
-- Performance e consumo de memória otimizados
-- Cobertura de testes aumentada de 21% para 31%
-- Documentação completa via Postman Collection
 
 ---
 

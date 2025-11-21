@@ -1,0 +1,5 @@
+Repositório público do projeto Painel de Investimentos:
+
+https://github.com/alfredosantos83/PAINEL-INVESTIMENTO-PERFIL
+
+Acesse para visualizar o código fonte, documentação, evidências e histórico de versões.

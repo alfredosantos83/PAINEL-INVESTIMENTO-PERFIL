@@ -31,7 +31,7 @@
 							"    pm.expect(jsonData.token).to.not.be.undefined;",
 							"    pm.collectionVariables.set(\"token\", jsonData.token);",
 							"    console.log(\"✓ Token salvo com sucesso\");",
-							"});"
+						"});"
 						]
 					}
 				}
@@ -41,12 +41,12 @@
 				"header": [{"key": "Content-Type", "value": "application/json"}],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"username\": \"admin\",\n    \"password\": \"senha123\"\n}"
+					"raw": "{\n    \"username\": \"admin\",\n    \"password\": \"admin\"\n}"
 				},
 				"url": {
-					"raw": "{{baseUrl}}/auth/login",
+					"raw": "{{baseUrl}}/api/auth/login",
 					"host": ["{{baseUrl}}"],
-					"path": ["auth", "login"]
+					"path": ["api", "auth", "login"]
 				}
 			}
 		},
@@ -65,14 +65,14 @@
 							"    pm.expect(data).to.have.property('size');",
 							"    pm.expect(data).to.have.property('total');",
 							"    pm.expect(data).to.have.property('totalPages');",
-							"});",
-							"pm.test(\"Página 0 com 5 itens\", () => {",
-							"    const data = pm.response.json();",
-							"    pm.expect(data.page).to.eql(0);",
-							"    pm.expect(data.size).to.eql(5);",
-							"    console.log(`✓ Total de registros: ${data.total}`);",
-							"    console.log(`✓ Total de páginas: ${data.totalPages}`);",
-							"});"
+						"});",
+						"pm.test(\"Página 0 com 5 itens\", () => {",
+						"    const data = pm.response.json();",
+						"    pm.expect(data.page).to.eql(0);",
+						"    pm.expect(data.size).to.eql(5);",
+						"    console.log(`✓ Total de registros: ${data.total}`);",
+						"    console.log(`✓ Total de páginas: ${data.totalPages}`);",
+					"});"
 						]
 					}
 				}
@@ -85,9 +85,9 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{baseUrl}}/api/products?page=0&size=5",
+					"raw": "{{baseUrl}}/api/investimentos?page=0&size=5",
 					"host": ["{{baseUrl}}"],
-					"path": ["api", "products"],
+					"path": ["api", "investimentos"],
 					"query": [
 						{"key": "page", "value": "0"},
 						{"key": "size", "value": "5"}
@@ -107,7 +107,7 @@
 							"    const data = pm.response.json();",
 							"    pm.expect(data.page).to.eql(1);",
 							"    pm.expect(data.size).to.eql(3);",
-							"});"
+						"});"
 						]
 					}
 				}
@@ -120,9 +120,9 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{baseUrl}}/api/products?page=1&size=3",
+					"raw": "{{baseUrl}}/api/investimentos?page=1&size=3",
 					"host": ["{{baseUrl}}"],
-					"path": ["api", "products"],
+					"path": ["api", "investimentos"],
 					"query": [
 						{"key": "page", "value": "1"},
 						{"key": "size", "value": "3"}
@@ -153,9 +153,9 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{baseUrl}}/api/products/all",
+					"raw": "{{baseUrl}}/api/investimentos/all",
 					"host": ["{{baseUrl}}"],
-					"path": ["api", "products", "all"]
+					"path": ["api", "investimentos", "all"]
 				}
 			}
 		},
@@ -173,9 +173,9 @@
 							"console.log(`⏱️ Tempo 2ª chamada (COM cache): ${secondTime}ms`);",
 							"pm.test(\"Cache funcionando - 2ª chamada mais rápida\", () => {",
 							"    pm.expect(secondTime).to.be.below(firstTime);",
-							"});",
-							"const improvement = ((firstTime - secondTime) / firstTime * 100).toFixed(2);",
-							"console.log(`🚀 Melhoria de performance: ${improvement}%`);"
+						"});",
+						"const improvement = ((firstTime - secondTime) / firstTime * 100).toFixed(2);",
+						"console.log(`🚀 Melhoria de performance: ${improvement}%`);"
 						]
 					}
 				}
@@ -188,9 +188,9 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{baseUrl}}/api/products/all",
+					"raw": "{{baseUrl}}/api/investimentos/all",
 					"host": ["{{baseUrl}}"],
-					"path": ["api", "products", "all"]
+					"path": ["api", "investimentos", "all"]
 				}
 			}
 		},
@@ -204,7 +204,7 @@
 							"pm.test(\"Status 400 Bad Request\", () => {",
 							"    pm.response.to.have.status(400);",
 							"    console.log(\"✓ Validação funcionando - página negativa rejeitada\");",
-							"});"
+						"});"
 						]
 					}
 				}
@@ -217,9 +217,9 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{baseUrl}}/api/products?page=-1&size=10",
+					"raw": "{{baseUrl}}/api/investimentos?page=-1&size=10",
 					"host": ["{{baseUrl}}"],
-					"path": ["api", "products"],
+					"path": ["api", "investimentos"],
 					"query": [
 						{"key": "page", "value": "-1"},
 						{"key": "size", "value": "10"}
@@ -237,7 +237,7 @@
 							"pm.test(\"Status 400 Bad Request\", () => {",
 							"    pm.response.to.have.status(400);",
 							"    console.log(\"✓ Validação funcionando - tamanho > 100 rejeitado\");",
-							"});"
+						"});"
 						]
 					}
 				}
@@ -250,9 +250,9 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{baseUrl}}/api/products?page=0&size=150",
+					"raw": "{{baseUrl}}/api/investimentos?page=0&size=150",
 					"host": ["{{baseUrl}}"],
-					"path": ["api", "products"],
+					"path": ["api", "investimentos"],
 					"query": [
 						{"key": "page", "value": "0"},
 						{"key": "size", "value": "150"}

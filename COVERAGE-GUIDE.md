@@ -1,4 +1,6 @@
 # 📊 Guia de Cobertura de Código
+# ⚠️ Importante
+O SonarCloud lê o relatório de cobertura gerado pelo JaCoCo para calcular o percentual de linhas cobertas por testes automatizados. Se o JaCoCo indicar cobertura abaixo do mínimo exigido (ex: 60%), o SonarCloud irá sinalizar e bloquear o build até que o requisito seja atendido.
 
 ## 🎯 Opções de Cobertura para Projeto Quarkus
 
@@ -79,24 +81,23 @@ mvn clean verify sonar:sonar `
 - **Total de Testes:** 187
 - **Sucessos:** 187 (100%)
 - **Falhas:** 0
-- **Cobertura JaCoCo:** ~63% (subestimada)
+- **Cobertura JaCoCo:** 44% (real)
 - **Cobertura Real (IntelliJ):** **97,3%** ✅
 
-### Cobertura Real por Módulo (IntelliJ Coverage)
-| Pacote | Classes | Métodos | Branches | Linhas |
-|--------|---------|---------|----------|--------|
-| **Controllers** | 100% (5/5) | 100% (14/14) | 100% (2/2) | **100%** (67/67) ✅ |
-| **Domain** | 100% (11/11) | 100% (19/19) | 90% (18/20) | **100%** (49/49) ✅ |
-| **Security** | 100% (2/2) | 100% (6/6) | - | **100%** (19/19) ✅ |
-| **Services** | 100% (1/1) | 100% (3/3) | 100% (6/6) | **100%** (10/10) ✅ |
-| **Config** | 100% (1/1) | 100% (1/1) | - | **100%** (1/1) ✅ |
-| **Application** | 0% (0/1) | 0% (0/3) | - | 0% (0/4) ⚠️ |
+### Cobertura JaCoCo por Módulo
+| Pacote        | Cobertura |
+|---------------|-----------|
+| **Controllers** | 23%      |
+| **Domain**      | 100%     |
+| **Security**    | 100%     |
+| **Services**    | 0%       |
+| **Config**      | 0%       |
 
 ### Resumo Geral
-- **Classes:** 95,2% (20/21)
-- **Métodos:** 93,5% (43/46)
-- **Branches:** 92,9% (26/28)
-- **Linhas:** **97,3%** (146/150)
+- **Classes:** 31
+- **Métodos:** 69
+- **Branches:** 50%
+- **Linhas:** 44%
 
 ### Quality Gates
 - ✅ Cobertura mínima: 60%
@@ -144,6 +145,7 @@ mvn clean verify sonar:sonar `
 ---
 
 ## 🚀 Próximos Passos para Melhorar Cobertura
+> **Nota:** Para garantir aprovação no SonarCloud, mantenha o percentual de cobertura do JaCoCo acima do mínimo configurado no projeto. Caso contrário, o build será bloqueado e será necessário adicionar mais testes ou ajustar o limite mínimo no `pom.xml`.
 
 1. **Controllers** (40% → 80%)
    - Adicionar testes de erro handling

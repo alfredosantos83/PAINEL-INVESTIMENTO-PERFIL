@@ -1,32 +1,36 @@
 # Painel de Investimentos - Quarkus
 
-API de análise de perfil de risco e simulação de investimentos migrada para **Quarkus 3.16.3**.
+API de análise de perfil de risco e simulação de investimentos migrada para **Quarkus 3.8.6**.
 
 ## 🚀 Tecnologias
 
 - **Java 21**
-- **Quarkus 3.16.3** (anteriormente Spring Boot 3.5.0)
-- **Hibernate ORM with Panache** (substituindo Spring Data JPA)
-- **RESTEasy Reactive** (substituindo Spring MVC)
-- **SmallRye JWT** (substituindo Spring Security + JJWT)
-- **SQLite** (banco de dados)
+- **Quarkus 3.8.6** (migrado de Spring Boot 3.5.0)
+- **Hibernate ORM with Panache** (Active Record, substitui Spring Data JPA)
+- **RESTEasy Reactive** (substitui Spring MVC)
+- **SmallRye JWT** (substitui Spring Security + JJWT)
+- **H2 Database** (in-memory para testes; SQLite pode ser usado, mas H2 é padrão)
 - **SmallRye OpenAPI**
 - **Maven 3.9.6**
-- **Docker** (containerização)
+- **Docker & Docker Compose**
 
 ## 📋 Principais Mudanças na Migração
 
 ### De Spring Boot para Quarkus
 
-| Componente | Spring Boot | Quarkus |
-|------------|-------------|---------|
-| **Web Framework** | Spring MVC (`@RestController`) | RESTEasy Reactive (`@Path`, `@GET`, `@POST`) |
-| **Injeção de Dependência** | `@Autowired`, `@RequiredArgsConstructor` | `@Inject` (CDI) |
-| **Persistência** | Spring Data JPA (`JpaRepository`) | Hibernate Panache (Active Record) |
-| **Segurança** | Spring Security + JJWT | SmallRye JWT (MicroProfile JWT) |
-| **Configuração** | `application.yml` | `application.properties` |
-| **Validação** | `jakarta.validation` | `jakarta.validation` (sem mudanças) |
-| **Documentação API** | SpringDoc OpenAPI | SmallRye OpenAPI |
+| Componente              | Spring Boot                        | Quarkus                                   |
+|------------------------|------------------------------------|-------------------------------------------|
+| **Web Framework**      | Spring MVC (`@RestController`)     | RESTEasy Reactive (`@Path`, `@GET`, `@POST`) |
+| **Injeção de Dependência** | `@Autowired`, `@RequiredArgsConstructor` | `@Inject` (CDI)                       |
+| **Persistência**       | Spring Data JPA (`JpaRepository`)  | Hibernate Panache (Active Record)         |
+| **Segurança**          | Spring Security + JJWT             | SmallRye JWT (MicroProfile JWT)           |
+| **Configuração**       | `application.yml`                  | `application.properties` ou `application.yml` |
+| **Validação**          | `jakarta.validation`               | `jakarta.validation` (sem mudanças)       |
+| **Documentação API**   | SpringDoc OpenAPI                  | SmallRye OpenAPI                         |
+| **Banco de Dados**     | H2, PostgreSQL, MySQL, SQLite      | H2 (padrão), SQLite, PostgreSQL, MySQL   |
+| **Testes**             | JUnit, Mockito                     | JUnit 5, Mockito, RestAssured            |
+| **Cobertura**          | JaCoCo, IntelliJ Coverage          | JaCoCo, IntelliJ Coverage                |
+| **Containerização**    | Docker, Docker Compose             | Docker, Docker Compose                   |
 
 ### Hibernate Panache - Active Record Pattern
 
@@ -241,7 +245,7 @@ O projeto inclui workflows para:
 
 ## 🔄 Migration Notes
 
-Esta aplicação foi migrada de **Spring Boot 3.5.0** para **Quarkus 3.16.3** mantendo todas as funcionalidades:
+Esta aplicação foi migrada de **Spring Boot 3.5.0** para **Quarkus 3.8.6** mantendo todas as funcionalidades:
 
 - ✅ Autenticação JWT
 - ✅ Validação de entrada

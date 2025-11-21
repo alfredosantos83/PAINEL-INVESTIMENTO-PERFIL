@@ -9,10 +9,10 @@
 Após criar a organização, siga estes passos:
 
 1. **Clique em "Analyze new project"** ou "+" no canto superior direito
-2. **Selecione o repositório**: `alfredosantos83/Painel-de-Investimentos`
+2. **Selecione o repositório**: `alfredosantos83/PAINEL-INVESTIMENTO-PERFIL`
 3. **Configure o projeto**:
-   - Project key: `alfredosantos83_Painel-de-Investimentos`
-   - Display name: `Painel de Investimentos`
+   - Project key: `alfredosantos83_PAINEL-INVESTIMENTO-PERFIL`
+   - Display name: `PAINEL-INVESTIMENTO-PERFIL`
 
 ## 🔑 Passo 3: Gerar Token
 
@@ -36,7 +36,7 @@ Faça um push para o repositório e o workflow executará automaticamente:
 ```bash
 git add .
 git commit -m "Update SonarCloud configuration"
-git push origin master
+git push origin main
 ```
 
 ### Opção B: Executar Localmente
@@ -62,10 +62,10 @@ Você verá:
 Após a primeira análise, adicione estes badges ao README.md:
 
 ```markdown
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=alfredosantos83_Painel-de-Investimentos&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=alfredosantos83_Painel-de-Investimentos)
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=alfredosantos83_Painel-de-Investimentos&metric=coverage)](https://sonarcloud.io/summary/new_code?id=alfredosantos83_Painel-de-Investimentos)
-[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=alfredosantos83_Painel-de-Investimentos&metric=bugs)](https://sonarcloud.io/summary/new_code?id=alfredosantos83_Painel-de-Investimentos)
-[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=alfredosantos83_Painel-de-Investimentos&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=alfredosantos83_Painel-de-Investimentos)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=alfredosantos83_PAINEL-INVESTIMENTO-PERFIL&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=alfredosantos83_PAINEL-INVESTIMENTO-PERFIL)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=alfredosantos83_PAINEL-INVESTIMENTO-PERFIL&metric=coverage)](https://sonarcloud.io/summary/new_code?id=alfredosantos83_PAINEL-INVESTIMENTO-PERFIL)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=alfredosantos83_PAINEL-INVESTIMENTO-PERFIL&metric=bugs)](https://sonarcloud.io/summary/new_code?id=alfredosantos83_PAINEL-INVESTIMENTO-PERFIL)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=alfredosantos83_PAINEL-INVESTIMENTO-PERFIL&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=alfredosantos83_PAINEL-INVESTIMENTO-PERFIL)
 ```
 
 ## ⚙️ Configurações Opcionais
@@ -76,7 +76,7 @@ Após a primeira análise, adicione estes badges ao README.md:
 
 ### Configurar Branch Principal
 1. Acesse: **Project Settings > Branches and Pull Requests**
-2. Defina `master` como branch principal
+2. Defina `main` como branch principal
 
 ### Notificações
 1. Acesse: **Project Settings > Notifications**

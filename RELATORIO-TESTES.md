@@ -1,4 +1,6 @@
 # ✅ RELATÓRIO DE TESTES - Paginação e Cache
+# ⚠️ Importante
+O SonarCloud utiliza o relatório de cobertura gerado pelo JaCoCo para calcular o percentual de linhas cobertas por testes. Se o JaCoCo indicar cobertura abaixo do mínimo exigido, o SonarCloud irá sinalizar e bloquear o build até que o requisito seja atendido.
 
 **Data**: 18/11/2025  
 **Aplicação**: Painel de Investimentos  
@@ -20,6 +22,8 @@
 - **Testes Unitários**: ✅ 187 testes passando (100%)
 - **Aplicação**: ✅ Rodando em http://localhost:8081
 - **Features**: ✅ Cache extension ativa
+- **Cobertura JaCoCo**: 44% (real)
+- **Cobertura IntelliJ**: 97,3% (subestimada pelo JaCoCo)
 
 ---
 
@@ -245,6 +249,7 @@ Authorization: Bearer {token}
 ---
 
 ## 🎓 Conclusão
+> **Nota:** Para garantir aprovação no SonarCloud, mantenha o percentual de cobertura do JaCoCo acima do mínimo configurado no projeto. Caso contrário, o build será bloqueado e será necessário adicionar mais testes ou ajustar o limite mínimo no `pom.xml`.
 
 ### Status: ✅ IMPLEMENTAÇÃO COMPLETA E TESTADA
 

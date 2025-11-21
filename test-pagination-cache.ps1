@@ -6,17 +6,17 @@ Write-Host "TESTE DE PAGINAÇÃO E CACHE" -ForegroundColor Cyan
 Write-Host "========================================" -ForegroundColor Cyan
 Write-Host ""
 
-$baseUrl = "http://localhost:8081"
+$baseUrl = "http://localhost:8080"
 
 # 1. Fazer login para obter token
 Write-Host "1. Obtendo token de autenticação..." -ForegroundColor Yellow
 $loginBody = @{
     username = "admin"
-    password = "senha123"
+    password = "admin"
 } | ConvertTo-Json
 
 try {
-    $loginResponse = Invoke-RestMethod -Uri "$baseUrl/auth/login" -Method POST -Body $loginBody -ContentType "application/json"
+    $loginResponse = Invoke-RestMethod -Uri "$baseUrl/api/auth/login" -Method POST -Body $loginBody -ContentType "application/json"
     $token = $loginResponse.token
     Write-Host "   ✓ Token obtido com sucesso!" -ForegroundColor Green
     Write-Host ""
@@ -33,7 +33,7 @@ $headers = @{
 # 2. Testar endpoint paginado (página 0, tamanho 5)
 Write-Host "2. Testando paginação (página 0, 5 itens)..." -ForegroundColor Yellow
 try {
-    $paginatedResponse = Invoke-RestMethod -Uri "$baseUrl/api/products?page=0&size=5" -Method GET -Headers $headers
+    $paginatedResponse = Invoke-RestMethod -Uri "$baseUrl/api/investimentos?page=0&size=5" -Method GET -Headers $headers
     Write-Host "   ✓ Página: $($paginatedResponse.page)" -ForegroundColor Green
     Write-Host "   ✓ Tamanho: $($paginatedResponse.size)" -ForegroundColor Green
     Write-Host "   ✓ Total: $($paginatedResponse.total)" -ForegroundColor Green
@@ -47,7 +47,7 @@ try {
 # 3. Testar endpoint paginado (página 1, tamanho 3)
 Write-Host "3. Testando paginação (página 1, 3 itens)..." -ForegroundColor Yellow
 try {
-    $paginatedResponse2 = Invoke-RestMethod -Uri "$baseUrl/api/products?page=1&size=3" -Method GET -Headers $headers
+    $paginatedResponse2 = Invoke-RestMethod -Uri "$baseUrl/api/investimentos?page=1&size=3" -Method GET -Headers $headers
     Write-Host "   ✓ Página: $($paginatedResponse2.page)" -ForegroundColor Green
     Write-Host "   ✓ Tamanho: $($paginatedResponse2.size)" -ForegroundColor Green
     Write-Host "   ✓ Total: $($paginatedResponse2.total)" -ForegroundColor Green
@@ -61,7 +61,7 @@ try {
 Write-Host "4. Testando endpoint com cache (1ª chamada)..." -ForegroundColor Yellow
 try {
     $sw = [System.Diagnostics.Stopwatch]::StartNew()
-    $allProducts1 = Invoke-RestMethod -Uri "$baseUrl/api/products/all" -Method GET -Headers $headers
+    $allProducts1 = Invoke-RestMethod -Uri "$baseUrl/api/investimentos/all" -Method GET -Headers $headers
     $sw.Stop()
     $time1 = $sw.ElapsedMilliseconds
     Write-Host "   ✓ Produtos retornados: $($allProducts1.Count)" -ForegroundColor Green
@@ -75,7 +75,7 @@ try {
 Write-Host "5. Testando endpoint com cache (2ª chamada)..." -ForegroundColor Yellow
 try {
     $sw = [System.Diagnostics.Stopwatch]::StartNew()
-    $allProducts2 = Invoke-RestMethod -Uri "$baseUrl/api/products/all" -Method GET -Headers $headers
+    $allProducts2 = Invoke-RestMethod -Uri "$baseUrl/api/investimentos/all" -Method GET -Headers $headers
     $sw.Stop()
     $time2 = $sw.ElapsedMilliseconds
     Write-Host "   ✓ Produtos retornados: $($allProducts2.Count)" -ForegroundColor Green
@@ -94,7 +94,7 @@ try {
 # 6. Testar filtro por tipo com cache
 Write-Host "6. Testando filtro por tipo (com cache)..." -ForegroundColor Yellow
 try {
-    $productsByType = Invoke-RestMethod -Uri "$baseUrl/api/products/tipo/CDB" -Method GET -Headers $headers
+    $productsByType = Invoke-RestMethod -Uri "$baseUrl/api/investimentos/tipo/CDB" -Method GET -Headers $headers
     Write-Host "   ✓ Produtos CDB retornados: $($productsByType.Count)" -ForegroundColor Green
     Write-Host ""
 } catch {
@@ -104,7 +104,7 @@ try {
 # 7. Testar filtro por risco com cache
 Write-Host "7. Testando filtro por risco (com cache)..." -ForegroundColor Yellow
 try {
-    $productsByRisk = Invoke-RestMethod -Uri "$baseUrl/api/products/risco/BAIXO" -Method GET -Headers $headers
+    $productsByRisk = Invoke-RestMethod -Uri "$baseUrl/api/investimentos/risco/BAIXO" -Method GET -Headers $headers
     Write-Host "   ✓ Produtos de risco BAIXO retornados: $($productsByRisk.Count)" -ForegroundColor Green
     Write-Host ""
 } catch {
@@ -114,7 +114,7 @@ try {
 # 8. Testar validação de paginação (página negativa)
 Write-Host "8. Testando validação (página negativa)..." -ForegroundColor Yellow
 try {
-    $invalidPage = Invoke-RestMethod -Uri "$baseUrl/api/products?page=-1&size=10" -Method GET -Headers $headers
+    $invalidPage = Invoke-RestMethod -Uri "$baseUrl/api/investimentos?page=-1&size=10" -Method GET -Headers $headers
     Write-Host "   ✗ Validação não funcionou!" -ForegroundColor Red
 } catch {
     Write-Host "   ✓ Validação funcionando! Erro esperado: 400 Bad Request" -ForegroundColor Green
@@ -124,7 +124,7 @@ try {
 # 9. Testar validação de paginação (tamanho inválido)
 Write-Host "9. Testando validação (tamanho > 100)..." -ForegroundColor Yellow
 try {
-    $invalidSize = Invoke-RestMethod -Uri "$baseUrl/api/products?page=0&size=150" -Method GET -Headers $headers
+    $invalidSize = Invoke-RestMethod -Uri "$baseUrl/api/investimentos?page=0&size=150" -Method GET -Headers $headers
     Write-Host "   ✗ Validação não funcionou!" -ForegroundColor Red
 } catch {
     Write-Host "   ✓ Validação funcionando! Erro esperado: 400 Bad Request" -ForegroundColor Green
@@ -141,4 +141,4 @@ Write-Host "✓ Cache implementado (Caffeine)" -ForegroundColor Green
 Write-Host "✓ Validações de entrada funcionando" -ForegroundColor Green
 Write-Host "✓ Endpoints REST operacionais" -ForegroundColor Green
 Write-Host ""
-Write-Host "Documentação OpenAPI: http://localhost:8081/q/openapi" -ForegroundColor Cyan
+Write-Host "Documentação OpenAPI: http://localhost:8080/q/openapi" -ForegroundColor Cyan
