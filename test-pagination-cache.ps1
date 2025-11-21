@@ -6,7 +6,7 @@ Write-Host "TESTE DE PAGINAÇÃO E CACHE" -ForegroundColor Cyan
 Write-Host "========================================" -ForegroundColor Cyan
 Write-Host ""
 
-$baseUrl = "http://localhost:8080"
+ $baseUrl = "http://localhost:8081"
 
 # 1. Fazer login para obter token
 Write-Host "1. Obtendo token de autenticação..." -ForegroundColor Yellow
@@ -141,4 +141,4 @@ Write-Host "✓ Cache implementado (Caffeine)" -ForegroundColor Green
 Write-Host "✓ Validações de entrada funcionando" -ForegroundColor Green
 Write-Host "✓ Endpoints REST operacionais" -ForegroundColor Green
 Write-Host ""
-Write-Host "Documentação OpenAPI: http://localhost:8080/q/openapi" -ForegroundColor Cyan
+Write-Host "Documentação OpenAPI: http://localhost:8081/q/openapi" -ForegroundColor Cyan
