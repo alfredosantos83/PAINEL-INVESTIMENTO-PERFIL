@@ -1,4 +1,46 @@
 {
+	{
+		"name": "Simulações Realizadas",
+		"request": {
+			"method": "GET",
+			"header": [],
+			"url": {
+				"raw": "{{base_url}}/simulacoes",
+				"host": ["{{base_url}}"],
+				"path": ["simulacoes"]
+			},
+			"description": "Retorna todas as simulações realizadas.\n\nExemplo de resposta:\n\n[\n  {\n    \"id\": 1,\n    \"clienteId\": 123,\n    \"produto\": \"CDB Caixa 2026\",\n    \"valorInvestido\": 10000.00,\n    \"valorFinal\": 11200.00,\n    \"prazoMeses\": 12,\n    \"dataSimulacao\": \"2025-10-31T14:00:00Z\"\n  },\n  {\n    \"id\": 2,\n    \"clienteId\": 123,\n    \"produto\": \"Fundo XPTO\",\n    \"valorInvestido\": 5000.00,\n    \"valorFinal\": 5800.00,\n    \"prazoMeses\": 6,\n    \"dataSimulacao\": \"2025-09-15T10:30:00Z\"\n  }\n]"
+		},
+		"response": []
+	},
+	{
+		"name": "Valores Simulados para Cada Produto em Cada Dia",
+		"request": {
+			"method": "GET",
+			"header": [],
+			"url": {
+				"raw": "{{base_url}}/simulacoes/por-produto-dia",
+				"host": ["{{base_url}}"],
+				"path": ["simulacoes", "por-produto-dia"]
+			},
+			"description": "Retorna os valores simulados para cada produto em cada dia.\n\nExemplo de resposta:\n\n[\n  {\n    \"produto\": \"CDB Caixa 2026\",\n    \"data\": \"2025-10-30\",\n    \"quantidadeSimulacoes\": 15,\n    \"mediaValorFinal\": 11050.00\n  },\n  {\n    \"produto\": \"Fundo XPTO\",\n    \"data\": \"2025-10-30\",\n    \"quantidadeSimulacoes\": 8,\n    \"mediaValorFinal\": 5700.00\n  }\n]"
+		},
+		"response": []
+	},
+	{
+		"name": "Telemetria com Volumes e Tempos de Resposta",
+		"request": {
+			"method": "GET",
+			"header": [],
+			"url": {
+				"raw": "{{base_url}}/telemetria-volumes",
+				"host": ["{{base_url}}"],
+				"path": ["telemetria-volumes"]
+			},
+			"description": "Retorna dados de telemetria com volumes e tempos de resposta para cada serviço.\n\nExemplo de resposta:\n\n{\n  \"servicos\": [\n    {\n      \"nome\": \"simular-investimento\",\n      \"quantidadeChamadas\": 120,\n      \"mediaTempoRespostaMs\": 250\n    },\n    {\n      \"nome\": \"perfil-risco\",\n      \"quantidadeChamadas\": 80,\n      \"mediaTempoRespostaMs\": 180\n    },\n    {\n      \"nome\": \"produtos-recomendados\",\n      \"quantidadeChamadas\": 60,\n      \"mediaTempoRespostaMs\": 200\n    },\n    {\n      \"nome\": \"investimentos\",\n      \"quantidadeChamadas\": 45,\n      \"mediaTempoRespostaMs\": 220\n    }\n  ],\n  \"periodo\": {\n    \"inicio\": \"2025-10-01\",\n    \"fim\": \"2025-10-31\"\n  }\n}"
+		},
+		"response": []
+	},
 													{
 														"name": "Histórico de Investimentos",
 														"request": {

@@ -4,6 +4,8 @@ API REST desenvolvida em Java 21 com **Quarkus 3.8.6** para análise de perfil d
 
 > 🚀 **Migrado de Spring Boot para Quarkus** - Aplicação modernizada com startup ultra-rápido e menor consumo de memória.
 
+## ⚡ Para consultar os endpoints e testar todas as funcionalidades da API, utilize o Postman. A documentação e exemplos de uso estão disponíveis na Postman Collection fornecida no projeto.
+
 ## 📋 Descrição
 
 Sistema que analisa o comportamento financeiro do cliente e ajusta automaticamente seu perfil de risco, sugerindo produtos de investimento como CDBs, LCIs, LCAs, Tesouro Direto, Fundos, etc.
@@ -13,7 +15,7 @@ Sistema que analisa o comportamento financeiro do cliente e ajusta automaticamen
 - ✅ Simulação de investimentos com cálculo de rentabilidade e impostos
 - ✅ Motor de recomendação baseado em volume, frequência e preferências
 - ✅ Análise e classificação de perfil de risco (Conservador, Moderado, Agressivo)
-- ✅ Histórico de simulações e investimentos
+- ✅ Histórico de Simulações Realizadas e investimentos
 - ✅ Telemetria de serviços com volumes e tempos de resposta
 - ✅ Autenticação JWT (RS256 com SmallRye JWT)
 - ✅ Documentação via Postman Collection
@@ -21,6 +23,44 @@ Sistema que analisa o comportamento financeiro do cliente e ajusta automaticamen
 - ✅ Testes unitários e integração (187 testes, 100% passando)
 - ✅ Cobertura de código - **97,3%** (IntelliJ Coverage)
 - ✅ Análise de qualidade com SonarQube
+
+
+## ⚡ Pré-requisito para acessar via Postman
+
+Antes de testar os endpoints da API no Postman, certifique-se de que o backend Quarkus está rodando:
+
+```
+mvn quarkus:dev
+```
+
+O serviço estará disponível em `http://localhost:8081`. Só então execute as requisições pelo Postman.
+
+---
+
+### Passo a passo para acessar a API via Postman
+
+1. **Abra o Postman**
+2. **Importe a Collection**
+   - Clique em **Import** e selecione o arquivo `PAINEL-INVESTIMEN-PERFIL.postman_collection.json`.
+   - A collection já traz todos os endpoints e exemplos.
+3. **Faça login para obter o token JWT**
+   - Execute a request "Login Admin" ou "Login User".
+   - Utilize as credenciais:
+     - Usuário: `admin` | Senha: `password123`
+     - Usuário: `user`  | Senha: `password123`
+   - O token JWT será salvo automaticamente na variável `{{jwt_token}}`.
+4. **Autorize as requisições protegidas**
+   - Todos os endpoints protegidos já usam o token JWT via Bearer Token.
+   - Caso precise configurar manualmente:
+     - Na aba **Authorization** da request, selecione **Bearer Token**.
+     - Cole o token JWT obtido no campo Token.
+5. **Execute os endpoints desejados**
+   - Basta clicar na request desejada e enviar.
+   - O token será enviado automaticamente para autenticação.
+
+> **Atenção:** A autorização por Bearer Token é obrigatória para acessar endpoints protegidos. Sem o token, a API retorna erro 401 (não autorizado).
+
+---
 
 ## 🚀 Tecnologias
 
@@ -127,96 +167,47 @@ A aplicação estará disponível em: `http://localhost:8081`
 
 ## 📚 Documentação da API
 
-### 🧪 Testando com Postman
+### 🧪 Testando e Autenticando via Postman
 
-#### 1. Importar Collection
+#### 1. Importando a Collection
 
-Importe o arquivo `Painel-Investimentos.postman_collection.json` no Postman:
+- Importe o arquivo `PAINEL-INVESTIMEN-PERFIL.postman_collection.json` no Postman.
+- A collection já possui variáveis automáticas (`base_url`, `jwt_token`) e scripts para salvar o token JWT após login.
 
-1. Abra o **Postman**
-2. Clique em **Import** (canto superior esquerdo)
-3. Selecione o arquivo `Painel-Investimentos.postman_collection.json`
-4. Clique **Import**
+#### 2. Autenticação Bearer Token
 
-A collection inclui:
-- ✅ 7 requests pré-configuradas
-- ✅ Variáveis automáticas (`base_url`, `jwt_token`)
-- ✅ Scripts de automação (token salvo automaticamente)
-- ✅ Autenticação Bearer configurada
+- Execute a request **"Login Admin"** ou **"Login User"** para obter o token JWT.
+- O token será salvo automaticamente na variável `{{jwt_token}}`.
+- Todos os endpoints protegidos já estão configurados para usar o token via Bearer.
+- Caso precise configurar manualmente:
+  - Vá na aba **Authorization** da request.
+  - Selecione o tipo **Bearer Token**.
+  - Cole o token JWT obtido no campo Token.
 
-#### 2. Fazer Login
+#### 3. Fluxo de Teste
 
-Execute a request **"Login Admin"** ou **"Login User"**:
+1. Inicie o backend Quarkus (`mvn quarkus:dev`).
+2. Importe a collection no Postman.
+3. Execute o login para obter o token.
+4. Teste os endpoints protegidos normalmente.
 
-**Endpoint:** `POST http://localhost:8081/auth/login`
+#### 4. Usuários para Teste no Postman
 
-**Body (JSON):**
-```json
-{
-  "username": "admin",
-  "password": "password123"
-}
+| Usuário | Senha         | Role  |
+|---------|--------------|-------|
+| admin   | password123  | ADMIN |
+| user    | password123  | USER  |
+
+Utilize essas credenciais nas requests de login do Postman para obter o token JWT.
+
+---
+
+#### Exemplo de uso do token
+
+```http
+GET /secure/profile
+Authorization: Bearer {jwt_token}
 ```
-
-**Response:**
-```json
-{
-  "token": "eyJ0eXAiOiJKV1QiLCJhbGc...",
-  "type": "Bearer",
-  "username": "admin",
-  "role": "ROLE_ADMIN"
-}
-```
-
-> 💡 O token JWT é **automaticamente salvo** na variável `{{jwt_token}}` quando você usa a collection.
-
-#### 3. Testar Endpoints Protegidos
-
-Após o login, teste os endpoints da pasta **"Secured Endpoints"**:
-
-**Get Profile** - `GET /secure/profile`
-```json
-{
-  "username": "admin",
-  "email": "admin@caixa.com",
-  "roles": ["ADMIN"]
-}
-```
-
-**Admin Area** - `GET /secure/admin` (somente ADMIN)
-```json
-{
-  "message": "Bem-vindo, administrador!",
-  "user": "admin",
-  "access": "ADMIN"
-}
-```
-
-**User Area** - `GET /secure/user` (USER ou ADMIN)
-```json
-{
-  "message": "Área do usuário",
-  "user": "admin",
-  "access": "USER"
-}
-```
-
-#### 4. Credenciais Disponíveis
-
-| Usuário | Senha | Role |
-|---------|-------|------|
-| `admin` | `password123` | ADMIN |
-| `user` | `password123` | USER |
-
-#### 5. Configuração Manual (sem collection)
-
-Se preferir configurar manualmente:
-
-1. **Faça login** e copie o token da resposta
-2. Na aba **"Authorization"**:
-   - Type: `Bearer Token`
-   - Token: cole o token (sem "Bearer", sem aspas)
-3. Envie a request
 
 ### 🧪 Testando com PowerShell
 
@@ -303,8 +294,8 @@ Execute o script de testes automatizado:
 }
 ```
 
-#### 2. Histórico de Simulações
-**GET** `/v1/simulacoes?clienteId=1`
+#### 2. Histórico de Simulações Realizadas
+**GET** `/v1/historico-simulacoes?clienteId=1`
 
 **Headers:** `Authorization: Bearer {token}`
 
@@ -578,7 +569,6 @@ painel-investimentos/
 │   │   └── resources/
 │   │       ├── application.yml  # Configurações Quarkus
 │   │       ├── data.sql         # Dados iniciais
-│   │       └── META-INF/
 │   │           └── resources/
 │   │               ├── publicKey.pem   # Chave pública JWT
 │   │               └── privateKey.pem  # Chave privada JWT
@@ -603,12 +593,13 @@ painel-investimentos/
 - [x] Filtro de produtos adequados
 - [x] Cálculos de simulação
 - [x] Persistência de simulações
-- [x] Endpoint histórico de simulações
+- [x] Endpoint histórico de Simulações Realizadas
 - [x] Endpoint simulações por produto/dia
 - [x] Endpoint telemetria
 - [x] Docker/Docker Compose
 - [x] Autenticação JWT (RS256 com SmallRye JWT)
 - [x] Motor de Recomendação
+```
 - [x] Perfil de risco dinâmico
 - [x] Testes unitários e integração (68/68 passando)
 - [x] Análise de código com JaCoCo (31% cobertura)
@@ -672,12 +663,11 @@ mvn clean test jacoco:report
 # Abrir em navegador: target/site/jacoco/index.html
 ```
 
-**Métricas JaCoCo:**
-- Cobertura total: 31%
-- Controllers: 40%
-- Security: 78%
-- Domain: 6%
-- Services: 0%
+- **Cobertura total JaCoCo:** 44%
+- **Controllers:** 23%
+- **Domain:** 100%
+- **Security:** 100%
+- **Service:** 0%
 
 > ⚠️ **Nota:** A cobertura do JaCoCo é inferior devido a incompatibilidades com Lombok e transformações bytecode do Quarkus. Todos os 187 testes estão passando.
 
@@ -748,6 +738,13 @@ Este projeto foi desenvolvido para fins educacionais.
 
 ## 🙏 Agradecimentos
 
+Agradeço profundamente:
+
+- À minha esposa pelo apoio incondicional e suporte durante toda a jornada deste projeto.
+- À minha filha de 3 anos pela compreensão e paciência nos momentos de dedicação ao estudo e desenvolvimento.
+- À minha irmã e seu marido pelas dicas valiosas de programação e incentivo constante.
+- Ao meu chefe pelo apoio, confiança e incentivo ao crescimento profissional.
+
 - Projeto migrado com sucesso de **Spring Boot 3.5.0** para **Quarkus 3.8.6**
 - Todos os testes mantidos e funcionando (68/68 ✅)
 - Autenticação JWT RS256 implementada com SmallRye
@@ -758,4 +755,3 @@ Este projeto foi desenvolvido para fins educacionais.
 ---
 
 ⭐ Se este projeto foi útil, considere dar uma estrela no GitHub!
-# PAINEL-INVESTIMENTO-PERFIL
