@@ -13,25 +13,55 @@ public class SimularInvestimentoController {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response simularInvestimento(String requestJson) {
-        // Mock response conforme especificação
-        String responseJson = """
+    public Response simularInvestimento(com.caixa.invest.dto.request.SimulacaoRequest request) {
+        // Buscar produto pelo tipo
+        com.caixa.invest.domain.Product.TipoProduto tipoProdutoEnum;
+        try {
+            tipoProdutoEnum = com.caixa.invest.domain.Product.TipoProduto.valueOf(request.getTipoProduto());
+        } catch (Exception e) {
+            return Response.status(Response.Status.BAD_REQUEST)
+                .entity("Tipo de produto inválido").build();
+        }
+        // Mock busca do produto (em produção, buscar do banco)
+        com.caixa.invest.domain.Product produto = new com.caixa.invest.domain.Product();
+        produto.setId(101L);
+        produto.setNome("CDB Caixa 2026");
+        produto.setTipo(tipoProdutoEnum);
+        produto.setRentabilidade(new java.math.BigDecimal("0.12"));
+        produto.setRisco(com.caixa.invest.domain.Product.NivelRisco.BAIXO);
+
+        // Calcular resultado da simulação
+        java.math.BigDecimal valorFinal = request.getValor().multiply(java.math.BigDecimal.ONE.add(produto.getRentabilidade()));
+        java.time.LocalDateTime dataSimulacao = java.time.LocalDateTime.now();
+
+        // Montar resposta
+        String responseJson = String.format("""
         {
           "produtoValidado": {
-            "id": 101,
-            "nome": "CDB Caixa 2026",
-            "tipo": "CDB",
-            "rentabilidade": 0.12,
-            "risco": "Baixo"
+            "id": %d,
+            "nome": "%s",
+            "tipo": "%s",
+            "rentabilidade": %.2f,
+            "risco": "%s"
           },
           "resultadoSimulacao": {
-            "valorFinal": 11200.00,
-            "rentabilidadeEfetiva": 0.12,
-            "prazoMeses": 12
+            "valorFinal": %.2f,
+            "rentabilidadeEfetiva": %.2f,
+            "prazoMeses": %d
           },
-          "dataSimulacao": "2025-10-31T14:00:00Z"
+          "dataSimulacao": "%s"
         }
-        """;
+        """,
+            produto.getId(),
+            produto.getNome(),
+            produto.getTipo().name(),
+            produto.getRentabilidade().doubleValue(),
+            produto.getRisco().getDescricao(),
+            valorFinal.doubleValue(),
+            produto.getRentabilidade().doubleValue(),
+            request.getPrazoMeses(),
+            dataSimulacao.toString()
+        );
         return Response.ok(responseJson, MediaType.APPLICATION_JSON).build();
     }
 }

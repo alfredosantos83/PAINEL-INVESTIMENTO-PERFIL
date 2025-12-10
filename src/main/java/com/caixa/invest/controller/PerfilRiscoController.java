@@ -14,14 +14,12 @@ public class PerfilRiscoController {
     @Path("/{clienteId}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getPerfilRisco(@PathParam("clienteId") int clienteId) {
-        String json = """
-        {
-          "clienteId": %d,
-          "perfil": "Moderado",
-          "pontuacao": 65,
-          "descricao": "Perfil equilibrado entre segurança e rentabilidade."
-        }
-        """.formatted(clienteId);
-        return Response.ok(json, MediaType.APPLICATION_JSON).build();
+        // TODO: Replace with actual service/repository logic
+        Map<String, Object> perfilRisco = new HashMap<>();
+        perfilRisco.put("clienteId", clienteId);
+        perfilRisco.put("perfil", "Moderado");
+        perfilRisco.put("pontuacao", 65);
+        perfilRisco.put("descricao", "Perfil equilibrado entre segurança e rentabilidade.");
+        return Response.ok(perfilRisco, MediaType.APPLICATION_JSON).build();
     }
 }

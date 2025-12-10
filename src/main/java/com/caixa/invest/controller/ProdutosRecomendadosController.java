@@ -14,24 +14,25 @@ public class ProdutosRecomendadosController {
     @Path("/{perfil}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getProdutosRecomendados(@PathParam("perfil") String perfil) {
-        String json = """
-        [
-          {
-            "id": 101,
-            "nome": "CDB Caixa 2026",
-            "tipo": "CDB",
-            "rentabilidade": 0.12,
-            "risco": "Baixo"
-          },
-          {
-            "id": 102,
-            "nome": "Fundo XPTO",
-            "tipo": "Fundo",
-            "rentabilidade": 0.18,
-            "risco": "Alto"
-          }
-        ]
-        """;
-        return Response.ok(json, MediaType.APPLICATION_JSON).build();
+        // TODO: Replace with actual service/repository logic
+        List<Map<String, Object>> produtos = new ArrayList<>();
+
+        Map<String, Object> produto1 = new HashMap<>();
+        produto1.put("id", 101);
+        produto1.put("nome", "CDB Caixa 2026");
+        produto1.put("tipo", "CDB");
+        produto1.put("rentabilidade", 0.12);
+        produto1.put("risco", "Baixo");
+        produtos.add(produto1);
+
+        Map<String, Object> produto2 = new HashMap<>();
+        produto2.put("id", 102);
+        produto2.put("nome", "Fundo XPTO");
+        produto2.put("tipo", "Fundo");
+        produto2.put("rentabilidade", 0.18);
+        produto2.put("risco", "Alto");
+        produtos.add(produto2);
+
+        return Response.ok(produtos, MediaType.APPLICATION_JSON).build();
     }
 }

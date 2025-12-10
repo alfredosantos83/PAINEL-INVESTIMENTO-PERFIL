@@ -12,22 +12,24 @@ public class SimulacoesPorProdutoDiaController {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getSimulacoesPorProdutoDia() {
-        String json = """
-        [
-          {
-            "produto": "CDB Caixa 2026",
-            "data": "2025-10-30",
-            "quantidadeSimulacoes": 15,
-            "mediaValorFinal": 11050.00
-          },
-          {
-            "produto": "Fundo XPTO",
-            "data": "2025-10-30",
-            "quantidadeSimulacoes": 8,
-            "mediaValorFinal": 5700.00
-          }
-        ]
-        """;
-        return Response.ok(json, MediaType.APPLICATION_JSON).build();
+        // TODO: Replace with actual service/repository logic
+        // Example dynamic response using domain entities
+        List<Map<String, Object>> result = new ArrayList<>();
+        // Simulate fetching from database
+        Map<String, Object> item1 = new HashMap<>();
+        item1.put("produto", "CDB Caixa 2026");
+        item1.put("data", "2025-10-30");
+        item1.put("quantidadeSimulacoes", 15);
+        item1.put("mediaValorFinal", 11050.00);
+        result.add(item1);
+
+        Map<String, Object> item2 = new HashMap<>();
+        item2.put("produto", "Fundo XPTO");
+        item2.put("data", "2025-10-30");
+        item2.put("quantidadeSimulacoes", 8);
+        item2.put("mediaValorFinal", 5700.00);
+        result.add(item2);
+
+        return Response.ok(result, MediaType.APPLICATION_JSON).build();
     }
 }
