@@ -1,5 +1,10 @@
 package com.caixa.invest.controller;
 
+import java.util.List;
+import java.util.Map;
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
@@ -14,7 +19,7 @@ public class ProdutosRecomendadosController {
     @Path("/{perfil}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getProdutosRecomendados(@PathParam("perfil") String perfil) {
-        // TODO: Replace with actual service/repository logic
+
         List<Map<String, Object>> produtos = new ArrayList<>();
 
         Map<String, Object> produto1 = new HashMap<>();

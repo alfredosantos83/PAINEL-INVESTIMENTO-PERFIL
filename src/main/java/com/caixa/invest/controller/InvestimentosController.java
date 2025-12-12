@@ -1,5 +1,10 @@
 package com.caixa.invest.controller;
 
+import java.util.List;
+import java.util.Map;
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
@@ -14,7 +19,7 @@ public class InvestimentosController {
     @Path("/{clienteId}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getInvestimentos(@PathParam("clienteId") int clienteId) {
-        // TODO: Replace with actual service/repository logic
+
         List<Map<String, Object>> investimentos = new ArrayList<>();
 
         Map<String, Object> investimento1 = new HashMap<>();

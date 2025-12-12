@@ -16,6 +16,14 @@ import java.math.BigDecimal;
 @EqualsAndHashCode(callSuper = false)
 public class Product extends PanacheEntity {
 
+    // Métodos para compatibilidade com controllers
+    public Long getId() {
+        return this.id;
+    }
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     @Column(nullable = false)
     private String nome;
 
@@ -65,7 +73,16 @@ public class Product extends PanacheEntity {
     public enum NivelRisco {
         BAIXO,
         MEDIO,
-        ALTO
+        ALTO;
+
+        public String getDescricao() {
+            switch (this) {
+                case BAIXO: return "Baixo";
+                case MEDIO: return "Médio";
+                case ALTO: return "Alto";
+                default: return this.name();
+            }
+        }
     }
 
     @Generated("JPA")

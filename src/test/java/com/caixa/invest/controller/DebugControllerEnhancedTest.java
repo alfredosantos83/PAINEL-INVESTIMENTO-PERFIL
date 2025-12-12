@@ -1,6 +1,6 @@
 package com.caixa.invest.controller;
 
-import com.caixa.invest.domain.User;
+
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Test;
@@ -9,10 +9,10 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 
 @QuarkusTest
-public class DebugControllerEnhancedTest {
+class DebugControllerEnhancedTest {
 
     @Test
-    public void testGetUsers() {
+    void testGetUsers() {
         given()
             .when()
             .get("/debug/users")
@@ -29,7 +29,7 @@ public class DebugControllerEnhancedTest {
     }
 
     @Test
-    public void testTestPasswordWithValidUser() {
+    void testTestPasswordWithValidUser() {
         given()
             .queryParam("username", "admin")
             .queryParam("password", "password123")
@@ -46,7 +46,7 @@ public class DebugControllerEnhancedTest {
     }
 
     @Test
-    public void testTestPasswordWithInvalidPassword() {
+    void testTestPasswordWithInvalidPassword() {
         given()
             .queryParam("username", "admin")
             .queryParam("password", "wrongpassword")
@@ -60,7 +60,7 @@ public class DebugControllerEnhancedTest {
     }
 
     @Test
-    public void testTestPasswordWithNonExistentUser() {
+    void testTestPasswordWithNonExistentUser() {
         given()
             .queryParam("username", "nonexistent")
             .queryParam("password", "anypassword")
@@ -74,7 +74,7 @@ public class DebugControllerEnhancedTest {
     }
 
     @Test
-    public void testGenerateHash() {
+    void testGenerateHash() {
         given()
             .queryParam("password", "mySecretPassword123")
             .when()
@@ -88,7 +88,7 @@ public class DebugControllerEnhancedTest {
     }
 
     @Test
-    public void testGenerateHashWithEmptyPassword() {
+    void testGenerateHashWithEmptyPassword() {
         given()
             .queryParam("password", "")
             .when()
