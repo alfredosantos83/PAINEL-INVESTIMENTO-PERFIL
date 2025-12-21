@@ -166,47 +166,53 @@ A aplicação estará disponível em: `http://localhost:8081`
 - Login: `http://localhost:8081/auth/login`
 - Produtos: `http://localhost:8081/api/products/*` (requer autenticação)
 
-## 📚 Documentação da API
 
-### 🧪 Testando e Autenticando via Postman
+## 📚 Documentação da API e URLs para Postman
 
-#### 1. Importando a Collection
+### 🧪 Como testar todos os endpoints no Postman
 
+#### 1. Importe a Collection
 - Importe o arquivo `PAINEL-INVESTIMEN-PERFIL.postman_collection.json` no Postman.
-- A collection já possui variáveis automáticas (`base_url`, `jwt_token`) e scripts para salvar o token JWT após login.
+- A collection já traz variáveis automáticas (`base_url`, `jwt_token`) e scripts para salvar o token JWT após login.
 
-#### 2. Autenticação Bearer Token
-
-- Execute a request **"Login Admin"** ou **"Login User"** para obter o token JWT.
+#### 2. Faça login para obter o token JWT
+- Execute a request "Login Admin" ou "Login User".
+- Usuários de teste:
+  - admin / password123 (ADMIN)
+  - user / password123 (USER)
 - O token será salvo automaticamente na variável `{{jwt_token}}`.
-- Todos os endpoints protegidos já estão configurados para usar o token via Bearer.
+
+#### 3. Autorize as requisições protegidas
+- Todos os endpoints protegidos já usam o token JWT via Bearer Token.
 - Caso precise configurar manualmente:
-  - Vá na aba **Authorization** da request.
-  - Selecione o tipo **Bearer Token**.
+  - Na aba **Authorization** da request, selecione **Bearer Token**.
   - Cole o token JWT obtido no campo Token.
 
-#### 3. Fluxo de Teste
+#### 4. URLs dos principais endpoints para uso no Postman
 
-1. Inicie o backend Quarkus (`mvn quarkus:dev`).
-2. Importe a collection no Postman.
-3. Execute o login para obter o token.
-4. Teste os endpoints protegidos normalmente.
+| Funcionalidade                        | Método | URL de exemplo                                                                 |
+|---------------------------------------|--------|-------------------------------------------------------------------------------|
+| Login                                | POST   | http://localhost:8081/auth/login                                              |
+| Simular Investimento                 | POST   | http://localhost:8081/simular-investimento                                   |
+| Histórico de Simulações              | GET    | http://localhost:8081/historico-simulacoes?clienteId=123                     |
+| Simulações por Produto e Dia         | GET    | http://localhost:8081/simulacoes/por-produto-dia?dataInicio=2025-10-30&dataFim=2025-10-30 |
+| Perfil de Risco                      | GET    | http://localhost:8081/perfil-risco/123                                       |
+| Produtos Recomendados                | GET    | http://localhost:8081/produtos-recomendados/MODERADO                         |
+| Investimentos do Cliente             | GET    | http://localhost:8081/investimentos/123                                      |
+| Telemetria                           | GET    | http://localhost:8081/telemetria?inicio=2025-10-01&fim=2025-10-31            |
 
-#### 4. Usuários para Teste no Postman
+> Todos os endpoints acima exigem autenticação JWT, exceto o login.
 
-| Usuário | Senha         | Role  |
-|---------|--------------|-------|
-| admin   | password123  | ADMIN |
-| user    | password123  | USER  |
-
-Utilize essas credenciais nas requests de login do Postman para obter o token JWT.
-
----
+#### 5. Fluxo sugerido para testar no Postman
+1. Inicie o Quarkus: `mvn quarkus:dev`
+2. Importe a collection no Postman
+3. Faça login e obtenha o token
+4. Teste os endpoints usando os URLs acima
 
 #### Exemplo de uso do token
 
 ```http
-GET /secure/profile
+GET /perfil-risco/123
 Authorization: Bearer {jwt_token}
 ```
 
