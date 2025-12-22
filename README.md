@@ -641,10 +641,26 @@ Execute os testes com cobertura no IntelliJ IDEA:
 # 1. Clique com botão direito no projeto
 # 2. Selecione "Run with Coverage"
 # 3. Visualize o relatório na aba "Coverage"
-```
+#### 3. Simulações por Produto e Dia
+**GET** `/v1/simulacoes/por-produto-dia?dataInicio=2025-10-01&dataFim=2025-10-31`
 
-**Métricas IntelliJ IDEA:**
-- **Cobertura total: 97,3%** ✅ (146/150 linhas)
+**Exemplo de resposta:**
+```json
+[
+  {
+    "produto": "CDB Caixa 2026",
+    "data": "2025-10-30",
+    "quantidadeSimulacoes": 15,
+    "mediaValorFinal": 11050.00
+  },
+  {
+    "produto": "Fundo XPTO",
+    "data": "2025-10-30",
+    "quantidadeSimulacoes": 8,
+    "mediaValorFinal": 5700.00
+  }
+]
+```
 - **Classes**: 95,2% (20/21)
 - **Métodos**: 93,5% (43/46)
 - **Branches**: 92,9% (26/28)

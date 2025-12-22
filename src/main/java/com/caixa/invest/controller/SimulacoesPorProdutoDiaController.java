@@ -24,22 +24,30 @@ public class SimulacoesPorProdutoDiaController {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getSimulacoesPorProdutoDia() {
-        var simulacoes = simulacaoRepository.listAll();
+    public Response getSimulacoesPorProdutoDia(@jakarta.ws.rs.QueryParam("data") String data,
+                                               @jakarta.ws.rs.QueryParam("produtos") String produtos) {
+        if (data == null || produtos == null || produtos.isBlank()) {
+            return Response.status(Response.Status.BAD_REQUEST)
+                .entity("Parâmetros 'data' e 'produtos' são obrigatórios.").build();
+        }
+        var nomesProdutos = List.of(produtos.split(","));
+        var simulacoes = simulacaoRepository.listAll().stream()
+            .filter(s -> s.getDataSimulacao().toLocalDate().toString().equals(data))
+            .filter(s -> nomesProdutos.contains(s.getProduto().getNome()))
+            .collect(Collectors.toList());
+
         var agrupado = simulacoes.stream()
-            .collect(Collectors.groupingBy(s -> s.getProduto().getNome() + "|" + s.getDataSimulacao().toLocalDate()));
+            .collect(Collectors.groupingBy(s -> s.getProduto().getNome()));
+
         List<Map<String, Object>> result = new ArrayList<>();
         for (var entry : agrupado.entrySet()) {
-            String[] chave = entry.getKey().split("\\|");
-            String produto = chave[0];
-            String data = chave[1];
-            List<Simulacao> sims = entry.getValue();
-            double media = sims.stream().mapToDouble(s -> s.getValorFinal().doubleValue()).average().orElse(0);
+            var lista = entry.getValue();
+            double media = lista.stream().mapToDouble(s -> s.getValorFinal().doubleValue()).average().orElse(0.0);
             Map<String, Object> item = new HashMap<>();
-            item.put("produto", produto);
+            item.put("produto", entry.getKey());
             item.put("data", data);
-            item.put("quantidadeSimulacoes", sims.size());
-            item.put("mediaValorFinal", media);
+            item.put("quantidadeSimulacoes", lista.size());
+            item.put("mediaValorFinal", Math.round(media * 100.0) / 100.0);
             result.add(item);
         }
         return Response.ok(result, MediaType.APPLICATION_JSON).build();

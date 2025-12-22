@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "tipo": "CDB",
+    "valor": 5000.00,
+    "rentabilidade": 0.12,
+    "data": "2025-01-15"
+  },
+  {
+    "id": 2,
+    "tipo": "Fundo Multimercado",
+    "valor": 3000.00,
+    "rentabilidade": 0.08,
+    "data": "2025-03-10"
+  }
+]

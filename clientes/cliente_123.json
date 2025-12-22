@@ -1,0 +1,7 @@
+{
+  "id": 123,
+  "nome": "Cliente Exemplo",
+  "cpf": "000.000.000-00",
+  "email": "cliente123@exemplo.com",
+  "data_cadastro": "2025-12-21"
+}

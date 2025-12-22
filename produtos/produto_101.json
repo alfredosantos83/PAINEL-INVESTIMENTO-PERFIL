@@ -1,0 +1,14 @@
+{
+  "id": 101,
+  "nome": "CDB Caixa 2026",
+  "tipo": "CDB",
+  "rentabilidade": 0.12,
+  "risco": "BAIXO",
+  "prazo_minimo_meses": 1,
+  "valor_minimo": 1000,
+  "valor_maximo": null,
+  "prazo_maximo_meses": null,
+  "ativo": true,
+  "liquidez_dias": 30,
+  "descricao": "CDB Caixa 2026"
+}

@@ -1,0 +1,14 @@
+{
+  "id": 103,
+  "nome": "Fundo Multimercado",
+  "tipo": "FUNDO_MULTIMERCADO",
+  "rentabilidade": 0.08,
+  "risco": "MODERADO",
+  "prazo_minimo_meses": 6,
+  "prazo_maximo_meses": null,
+  "valor_minimo": 1000,
+  "valor_maximo": 100000,
+  "ativo": true,
+  "liquidez_dias": 0,
+  "descricao": "Fundo Multimercado diversificado"
+}

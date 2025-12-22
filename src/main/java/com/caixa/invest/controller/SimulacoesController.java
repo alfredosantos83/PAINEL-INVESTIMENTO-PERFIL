@@ -20,8 +20,12 @@ public class SimulacoesController {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getSimulacoes() {
-        var simulacoes = simulacaoRepository.listAll().stream()
+    public Response getSimulacoes(@jakarta.ws.rs.QueryParam("clienteId") Long clienteId) {
+        var stream = simulacaoRepository.listAll().stream();
+        if (clienteId != null) {
+            stream = stream.filter(s -> s.getClienteId().equals(clienteId));
+        }
+        var simulacoes = stream
             .map(SimulacaoMapper::toEnvelope)
             .toList();
         return Response.ok(simulacoes, MediaType.APPLICATION_JSON).build();

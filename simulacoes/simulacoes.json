@@ -1,0 +1,229 @@
+[
+  {
+    "id": 1,
+    "clienteId": 123,
+    "produto": "CDB Caixa 2026",
+    "valorInvestido": 10000.00,
+    "valorFinal": 11200.00,
+    "prazoMeses": 12,
+    "dataSimulacao": "2025-10-31T14:00:00Z"
+  },
+  {
+    "id": 2,
+    "clienteId": 123,
+    "produto": "Fundo XPTO",
+    "valorInvestido": 5000.00,
+    "valorFinal": 5800.00,
+    "prazoMeses": 6,
+    "dataSimulacao": "2025-09-15T10:30:00Z"
+  },
+  // 15 simulações aleatórias de CDB (clienteId != 123)
+  {
+    "id": 3,
+    "clienteId": 201,
+    "produto": "CDB Caixa 2026",
+    "valorInvestido": 10000.00,
+    "valorFinal": 11050.00,
+    "prazoMeses": 12,
+    "dataSimulacao": "2025-10-30T00:00:00Z"
+  },
+  {
+    "id": 4,
+    "clienteId": 202,
+    "produto": "CDB Caixa 2026",
+    "valorInvestido": 9500.00,
+    "valorFinal": 10500.00,
+    "prazoMeses": 12,
+    "dataSimulacao": "2025-10-30T00:00:00Z"
+  },
+  {
+    "id": 5,
+    "clienteId": 203,
+    "produto": "CDB Caixa 2026",
+    "valorInvestido": 12000.00,
+    "valorFinal": 13200.00,
+    "prazoMeses": 12,
+    "dataSimulacao": "2025-10-30T00:00:00Z"
+  },
+  {
+    "id": 6,
+    "clienteId": 204,
+    "produto": "CDB Caixa 2026",
+    "valorInvestido": 8000.00,
+    "valorFinal": 8800.00,
+    "prazoMeses": 12,
+    "dataSimulacao": "2025-10-30T00:00:00Z"
+  },
+  {
+    "id": 7,
+    "clienteId": 205,
+    "produto": "CDB Caixa 2026",
+    "valorInvestido": 11000.00,
+    "valorFinal": 12100.00,
+    "prazoMeses": 12,
+    "dataSimulacao": "2025-10-30T00:00:00Z"
+  },
+  {
+    "id": 8,
+    "clienteId": 206,
+    "produto": "CDB Caixa 2026",
+    "valorInvestido": 10500.00,
+    "valorFinal": 11500.00,
+    "prazoMeses": 12,
+    "dataSimulacao": "2025-10-30T00:00:00Z"
+  },
+  {
+    "id": 9,
+    "clienteId": 207,
+    "produto": "CDB Caixa 2026",
+    "valorInvestido": 9800.00,
+    "valorFinal": 10780.00,
+    "prazoMeses": 12,
+    "dataSimulacao": "2025-10-30T00:00:00Z"
+  },
+  {
+    "id": 10,
+    "clienteId": 208,
+    "produto": "CDB Caixa 2026",
+    "valorInvestido": 10200.00,
+    "valorFinal": 11220.00,
+    "prazoMeses": 12,
+    "dataSimulacao": "2025-10-30T00:00:00Z"
+  },
+  {
+    "id": 11,
+    "clienteId": 209,
+    "produto": "CDB Caixa 2026",
+    "valorInvestido": 11500.00,
+    "valorFinal": 12650.00,
+    "prazoMeses": 12,
+    "dataSimulacao": "2025-10-30T00:00:00Z"
+  },
+  {
+    "id": 12,
+    "clienteId": 210,
+    "produto": "CDB Caixa 2026",
+    "valorInvestido": 9000.00,
+    "valorFinal": 9900.00,
+    "prazoMeses": 12,
+    "dataSimulacao": "2025-10-30T00:00:00Z"
+  },
+  {
+    "id": 13,
+    "clienteId": 211,
+    "produto": "CDB Caixa 2026",
+    "valorInvestido": 10800.00,
+    "valorFinal": 11880.00,
+    "prazoMeses": 12,
+    "dataSimulacao": "2025-10-30T00:00:00Z"
+  },
+  {
+    "id": 14,
+    "clienteId": 212,
+    "produto": "CDB Caixa 2026",
+    "valorInvestido": 9500.00,
+    "valorFinal": 10450.00,
+    "prazoMeses": 12,
+    "dataSimulacao": "2025-10-30T00:00:00Z"
+  },
+  {
+    "id": 15,
+    "clienteId": 213,
+    "produto": "CDB Caixa 2026",
+    "valorInvestido": 10000.00,
+    "valorFinal": 11050.00,
+    "prazoMeses": 12,
+    "dataSimulacao": "2025-10-30T00:00:00Z"
+  },
+  {
+    "id": 16,
+    "clienteId": 214,
+    "produto": "CDB Caixa 2026",
+    "valorInvestido": 12000.00,
+    "valorFinal": 13200.00,
+    "prazoMeses": 12,
+    "dataSimulacao": "2025-10-30T00:00:00Z"
+  },
+  {
+    "id": 17,
+    "clienteId": 215,
+    "produto": "CDB Caixa 2026",
+    "valorInvestido": 10500.00,
+    "valorFinal": 11550.00,
+    "prazoMeses": 12,
+    "dataSimulacao": "2025-10-30T00:00:00Z"
+  },
+  // 8 simulações aleatórias de Fundo XPTO (clienteId != 123)
+  {
+    "id": 18,
+    "clienteId": 301,
+    "produto": "Fundo XPTO",
+    "valorInvestido": 5000.00,
+    "valorFinal": 5700.00,
+    "prazoMeses": 6,
+    "dataSimulacao": "2025-10-30T00:00:00Z"
+  },
+  {
+    "id": 19,
+    "clienteId": 302,
+    "produto": "Fundo XPTO",
+    "valorInvestido": 4800.00,
+    "valorFinal": 5470.00,
+    "prazoMeses": 6,
+    "dataSimulacao": "2025-10-30T00:00:00Z"
+  },
+  {
+    "id": 20,
+    "clienteId": 303,
+    "produto": "Fundo XPTO",
+    "valorInvestido": 5200.00,
+    "valorFinal": 5920.00,
+    "prazoMeses": 6,
+    "dataSimulacao": "2025-10-30T00:00:00Z"
+  },
+  {
+    "id": 21,
+    "clienteId": 304,
+    "produto": "Fundo XPTO",
+    "valorInvestido": 5100.00,
+    "valorFinal": 5810.00,
+    "prazoMeses": 6,
+    "dataSimulacao": "2025-10-30T00:00:00Z"
+  },
+  {
+    "id": 22,
+    "clienteId": 305,
+    "produto": "Fundo XPTO",
+    "valorInvestido": 4950.00,
+    "valorFinal": 5640.00,
+    "prazoMeses": 6,
+    "dataSimulacao": "2025-10-30T00:00:00Z"
+  },
+  {
+    "id": 23,
+    "clienteId": 306,
+    "produto": "Fundo XPTO",
+    "valorInvestido": 5300.00,
+    "valorFinal": 6010.00,
+    "prazoMeses": 6,
+    "dataSimulacao": "2025-10-30T00:00:00Z"
+  },
+  {
+    "id": 24,
+    "clienteId": 307,
+    "produto": "Fundo XPTO",
+    "valorInvestido": 4700.00,
+    "valorFinal": 5350.00,
+    "prazoMeses": 6,
+    "dataSimulacao": "2025-10-30T00:00:00Z"
+  },
+  {
+    "id": 25,
+    "clienteId": 308,
+    "produto": "Fundo XPTO",
+    "valorInvestido": 5000.00,
+    "valorFinal": 5700.00,
+    "prazoMeses": 6,
+    "dataSimulacao": "2025-10-30T00:00:00Z"
+  }
+]

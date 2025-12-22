@@ -1,0 +1,14 @@
+{
+  "id": 102,
+  "nome": "Fundo XPTO",
+  "tipo": "FUNDO",
+  "rentabilidade": 0.18,
+  "risco": "ALTO",
+  "prazo_minimo_meses": 6,
+  "prazo_maximo_meses": 36,
+  "valor_minimo": 500,
+  "valor_maximo": 50000,
+  "ativo": true,
+  "liquidez_dias": 0,
+  "descricao": "Fundo de investimento XPTO"
+}
