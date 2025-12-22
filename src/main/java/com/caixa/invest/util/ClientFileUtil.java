@@ -13,7 +13,7 @@ public class ClientFileUtil {
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
     public static void saveClientToFile(Client client) throws IOException {
-        String clientDir = BASE_DIR + File.separator + client.getId();
+        String clientDir = BASE_DIR + File.separator + client.id;
         Path dirPath = Paths.get(clientDir);
         if (!Files.exists(dirPath)) {
             Files.createDirectories(dirPath);

@@ -1,11 +1,8 @@
 package com.caixa.invest.controller;
 
 import com.caixa.invest.domain.Product;
-import com.caixa.invest.repository.ProductRepository;
 import com.caixa.invest.domain.Simulacao;
 import com.caixa.invest.repository.SimulacaoRepository;
-import com.caixa.invest.domain.Telemetria;
-import com.caixa.invest.repository.TelemetriaRepository;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.Consumes;
@@ -18,97 +15,62 @@ import jakarta.ws.rs.core.Response;
 @Path("/simular-investimento")
 public class SimularInvestimentoController {
 
-    @Inject
-    ProductRepository productRepository;
 
     @Inject
     SimulacaoRepository simulacaoRepository;
 
-    @Inject
-    TelemetriaRepository telemetriaRepository;
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Transactional
     public Response simularInvestimento(com.caixa.invest.dto.request.SimulacaoRequest request) {
-        Product.TipoProduto tipoProdutoEnum;
+        // Buscar simulação existente em simulacoes.json pelo produto e data
+        com.fasterxml.jackson.databind.ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper();
         try {
-            tipoProdutoEnum = Product.TipoProduto.valueOf(request.getTipoProduto());
+            java.nio.file.Path path = java.nio.file.Paths.get("simulacoes/simulacoes.json");
+            java.util.List<java.util.Map<String, Object>> todasSimulacoes = new java.util.ArrayList<>();
+            if (java.nio.file.Files.exists(path)) {
+                todasSimulacoes = mapper.readValue(path.toFile(), new com.fasterxml.jackson.core.type.TypeReference<java.util.List<java.util.Map<String, Object>>>() {});
+            }
+            // Parâmetros de busca: produto e data (data pode ser só yyyy-MM-dd)
+            final String produtoNome;
+            if (request.getTipoProduto() != null) {
+                // Buscar nome do produto pelo tipo
+                String tipoProduto = request.getTipoProduto();
+                String[] arquivos = {"produtos/produto_101.json", "produtos/produto_102.json", "produtos/produto_103.json"};
+                String nomeEncontrado = null;
+                for (String arq : arquivos) {
+                    java.io.File f = new java.io.File(arq);
+                    if (f.exists()) {
+                        java.util.Map<String, Object> prod = mapper.readValue(f, new com.fasterxml.jackson.core.type.TypeReference<java.util.Map<String, Object>>(){});
+                        if (tipoProduto.equalsIgnoreCase(String.valueOf(prod.get("tipo")))) {
+                            nomeEncontrado = String.valueOf(prod.get("nome"));
+                            break;
+                        }
+                    }
+                }
+                produtoNome = nomeEncontrado;
+            } else {
+                produtoNome = null;
+            }
+            // Não existe getDataSimulacao em SimulacaoRequest, então não filtra por data
+            final String dataBusca = null;
+            java.util.Optional<java.util.Map<String, Object>> simulacaoExistente = todasSimulacoes.stream()
+                .filter(s -> (produtoNome == null || produtoNome.equalsIgnoreCase(String.valueOf(s.get("produto")))))
+                .filter(s -> {
+                    if (dataBusca == null || dataBusca.isEmpty()) return true;
+                    String dataSimulacao = String.valueOf(s.get("dataSimulacao"));
+                    return dataSimulacao.startsWith(dataBusca);
+                })
+                .findFirst();
+            if (simulacaoExistente.isPresent()) {
+                return Response.ok(simulacaoExistente.get(), MediaType.APPLICATION_JSON).build();
+            } else {
+                return Response.status(Response.Status.NOT_FOUND).entity("Simulação não encontrada para os parâmetros informados").build();
+            }
         } catch (Exception e) {
-            return Response.status(Response.Status.BAD_REQUEST)
-                .entity("Tipo de produto inválido").build();
+            return Response.status(500).entity("Erro ao buscar simulação: " + e.getMessage()).build();
         }
-        long inicio = System.currentTimeMillis();
-        Product produto = productRepository.find("tipo = ?1 and ativo = true", tipoProdutoEnum)
-            .stream()
-            .filter(p -> request.getValor().compareTo(p.getValorMinimo()) >= 0 && request.getValor().compareTo(p.getValorMaximo()) <= 0)
-            .filter(p -> request.getPrazoMeses() >= p.getPrazoMinimoMeses() && request.getPrazoMeses() <= p.getPrazoMaximoMeses())
-            .findFirst().orElse(null);
-        if (produto == null) {
-            return Response.status(Response.Status.BAD_REQUEST)
-                .entity("Nenhum produto encontrado para os parâmetros informados").build();
-        }
-        java.math.BigDecimal valorFinal = request.getValor().multiply(java.math.BigDecimal.ONE.add(produto.getRentabilidade()));
-        java.time.LocalDateTime dataSimulacao = java.time.LocalDateTime.now();
-        // Persistir simulação
-        Simulacao simulacao = Simulacao.builder()
-            .clienteId(request.getClienteId())
-            .produto(produto)
-            .valorInvestido(request.getValor())
-            .valorFinal(valorFinal)
-            .prazoMeses(request.getPrazoMeses())
-            .dataSimulacao(dataSimulacao)
-            .build();
-        simulacaoRepository.persist(simulacao);
-
-        // Registrar telemetria
-        long fim = System.currentTimeMillis();
-        String servico = "simular-investimento";
-        java.time.LocalDateTime agora = java.time.LocalDateTime.now();
-        Telemetria telemetria = telemetriaRepository.find("servico = ?1 and periodoInicio <= ?2 and periodoFim >= ?2", servico, agora)
-            .firstResult();
-        if (telemetria == null) {
-            telemetria = Telemetria.builder()
-                .servico(servico)
-                .quantidadeChamadas(1)
-                .somaTempoRespostaMs(fim - inicio)
-                .periodoInicio(agora.withDayOfMonth(1).withHour(0).withMinute(0).withSecond(0).withNano(0))
-                .periodoFim(agora.withDayOfMonth(agora.toLocalDate().lengthOfMonth()).withHour(23).withMinute(59).withSecond(59).withNano(999999999))
-                .build();
-            telemetriaRepository.persist(telemetria);
-        } else {
-            telemetria.setQuantidadeChamadas(telemetria.getQuantidadeChamadas() + 1);
-            telemetria.setSomaTempoRespostaMs(telemetria.getSomaTempoRespostaMs() + (fim - inicio));
-        }
-
-        String responseJson = String.format("""
-        {
-          "produtoValidado": {
-            "id": %d,
-            "nome": "%s",
-            "tipo": "%s",
-            "rentabilidade": %.2f,
-            "risco": "%s"
-          },
-          "resultadoSimulacao": {
-            "valorFinal": %.2f,
-            "rentabilidadeEfetiva": %.2f,
-            "prazoMeses": %d
-          },
-          "dataSimulacao": "%s"
-        }
-        """,
-            produto.getId(),
-            produto.getNome(),
-            produto.getTipo().name(),
-            produto.getRentabilidade().doubleValue(),
-            produto.getRisco().getDescricao(),
-            valorFinal.doubleValue(),
-            produto.getRentabilidade().doubleValue(),
-            request.getPrazoMeses(),
-            dataSimulacao.toString()
-        );
-        return Response.ok(responseJson, MediaType.APPLICATION_JSON).build();
     }
 }

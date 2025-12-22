@@ -41,8 +41,8 @@ O serviço estará disponível em `http://localhost:8081`. Só então execute as
 
 1. **Abra o Postman**
 2. **Importe a Collection**
-   - Clique em **Import** e selecione o arquivo `PAINEL-INVESTIMEN-PERFIL.postman_collection.json`.
-   - A collection já traz todos os endpoints e exemplos.
+  - Clique em **Import** e selecione o arquivo `PAINEL-INVEST-CLONED.postman_collection.json`.
+  - A collection já traz todos os endpoints, exemplos e variáveis automáticas (`base_url`, `jwt_token`).
 3. **Faça login para obter o token JWT**
    - Execute a request "Login Admin" ou "Login User".
    - Utilize as credenciais:
@@ -172,7 +172,7 @@ A aplicação estará disponível em: `http://localhost:8081`
 ### 🧪 Como testar todos os endpoints no Postman
 
 #### 1. Importe a Collection
-- Importe o arquivo `PAINEL-INVESTIMEN-PERFIL.postman_collection.json` no Postman.
+- Importe o arquivo `PAINEL-INVEST-CLONED.postman_collection.json` no Postman.
 - A collection já traz variáveis automáticas (`base_url`, `jwt_token`) e scripts para salvar o token JWT após login.
 
 #### 2. Faça login para obter o token JWT
@@ -194,8 +194,8 @@ A aplicação estará disponível em: `http://localhost:8081`
 |---------------------------------------|--------|-------------------------------------------------------------------------------|
 | Login                                | POST   | http://localhost:8081/auth/login                                              |
 | Simular Investimento                 | POST   | http://localhost:8081/simular-investimento                                   |
-| Histórico de Simulações              | GET    | http://localhost:8081/historico-simulacoes?clienteId=123                     |
-| Simulações por Produto e Dia         | GET    | http://localhost:8081/simulacoes/por-produto-dia?dataInicio=2025-10-30&dataFim=2025-10-30 |
+| Histórico de Simulações              | GET    | http://localhost:8081/simulacoes?clienteId=123                               |
+| Simulações por Produto e Dia         | GET    | http://localhost:8081/simulacoes/por-produto-dia?CDB%20Caixa%202026=2025-10-30 |
 | Perfil de Risco                      | GET    | http://localhost:8081/perfil-risco/123                                       |
 | Produtos Recomendados                | GET    | http://localhost:8081/produtos-recomendados/MODERADO                         |
 | Investimentos do Cliente             | GET    | http://localhost:8081/investimentos/123                                      |
@@ -205,9 +205,11 @@ A aplicação estará disponível em: `http://localhost:8081`
 
 #### 5. Fluxo sugerido para testar no Postman
 1. Inicie o Quarkus: `mvn quarkus:dev`
-2. Importe a collection no Postman
+2. Importe a collection no Postman (`PAINEL-INVEST-CLONED.postman_collection.json`)
 3. Faça login e obtenha o token
 4. Teste os endpoints usando os URLs acima
+
+> **Observação:** Os dados de simulação são lidos do arquivo `simulacoes/simulacoes.json`. Para alterar ou adicionar simulações, edite esse arquivo.
 
 #### Exemplo de uso do token
 
@@ -302,7 +304,7 @@ Execute o script de testes automatizado:
 ```
 
 #### 2. Histórico de Simulações Realizadas
-**GET** `/v1/historico-simulacoes?clienteId=1`
+**GET** `/simulacoes?clienteId=1`
 
 **Headers:** `Authorization: Bearer {token}`
 
@@ -316,7 +318,16 @@ Execute o script de testes automatizado:
     "valorInvestido": 10000.00,
     "valorFinal": 11200.00,
     "prazoMeses": 12,
-    "dataSimulacao": "2025-11-15T14:00:00"
+    "dataSimulacao": "2025-11-15T14:00:00Z"
+  },
+  {
+    "id": 2,
+    "clienteId": 1,
+    "produto": "Fundo XPTO",
+    "valorInvestido": 5000.00,
+    "valorFinal": 5800.00,
+    "prazoMeses": 6,
+    "dataSimulacao": "2025-09-15T10:30:00Z"
   }
 ]
 ```

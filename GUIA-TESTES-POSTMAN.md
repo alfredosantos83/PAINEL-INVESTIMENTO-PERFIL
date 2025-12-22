@@ -4,7 +4,7 @@
 
 1. **Aplicação rodando**: Execute `mvn quarkus:dev` no terminal
 2. **Postman instalado**: Baixe em https://www.postman.com/downloads/
-3. **Collection importada**: Use o arquivo `Postman-Paginacao-Cache.json`
+3. **Collection importada**: Use o arquivo `PAINEL-INVEST-CLONED.postman_collection.json`
 
 ---
 
@@ -13,7 +13,7 @@
 ### Método 1: Importação Direta
 1. Abra o Postman
 2. Clique em **Import** (canto superior esquerdo)
-3. Arraste o arquivo `Postman-Paginacao-Cache.json` ou clique em **Upload Files**
+3. Arraste o arquivo `PAINEL-INVEST-CLONED.postman_collection.json` ou clique em **Upload Files**
 4. Selecione o arquivo e clique em **Import**
 
 ### Método 2: Via Link
@@ -27,20 +27,22 @@
 
 ### Opção 1: Executar Toda a Collection (Recomendado)
 
-1. Clique com botão direito na collection **"Painel Investimentos - Paginação e Cache"**
+1. Clique com botão direito na collection **"PAINEL-INVEST-CLONED"**
 2. Selecione **"Run collection"**
-3. Clique em **"Run Painel Investimentos..."**
+3. Clique em **"Run PAINEL-INVEST-CLONED..."**
 4. Veja os resultados em tempo real
 
 **Resultados Esperados:**
 ```
 ✓ 1. Login Admin                        (200 OK)
-✓ 2. Paginação - Página 0 (5 itens)    (200 OK)
-✓ 3. Paginação - Página 1 (3 itens)    (200 OK)
-✓ 4. Cache - 1ª chamada                 (200 OK) - Tempo: ~150ms
-✓ 5. Cache - 2ª chamada                 (200 OK) - Tempo: ~5ms
-✓ 6. Validação - Página Negativa        (400 BAD REQUEST)
-✓ 7. Validação - Tamanho > 100          (400 BAD REQUEST)
+✓ 2. Login User                         (200 OK)
+✓ 3. Simular Investimento               (200 OK)
+✓ 4. Histórico de Simulações            (200 OK)
+✓ 5. Simulações por Produto e Dia       (200 OK)
+✓ 6. Perfil de Risco                    (200 OK)
+✓ 7. Produtos Recomendados              (200 OK)
+✓ 8. Investimentos do Cliente           (200 OK)
+✓ 9. Telemetria                         (200 OK)
 ```
 
 ### Opção 2: Executar Testes Individuais
@@ -53,11 +55,11 @@ Execute na ordem:
   ```json
   {
       "username": "admin",
-      "password": "senha123"
+      "password": "password123"
   }
   ```
 - **Esperado**: Status 200, token JWT salvo automaticamente
-- **Console**: `✓ Token salvo com sucesso`
+- **Console**: `✓ Token JWT salvo: ...`
 
 #### 2️⃣ Paginação - Página 0 (5 itens)
 - **Endpoint**: `GET /api/products?page=0&size=5`

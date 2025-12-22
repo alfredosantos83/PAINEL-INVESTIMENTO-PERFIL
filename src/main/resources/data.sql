@@ -2,9 +2,9 @@
 INSERT INTO products (id, nome, tipo, rentabilidade, risco, prazo_minimo_meses, prazo_maximo_meses, valor_minimo, valor_maximo, ativo, liquidez_dias, descricao) VALUES
     (103, 'Fundo Multimercado', 'FUNDO_MULTIMERCADO', 0.08, 'MODERADO', 6, 24, 1000, 100000, true, 0, 'Fundo Multimercado diversificado');
 -- Simulações do cliente 123
-INSERT INTO simulacoes (id, clienteId, produto_id, valorInvestido, valorFinal, prazoMeses, dataSimulacao) VALUES
-    (1, 123, (SELECT id FROM products WHERE nome = 'CDB Caixa 2026'), 10000.00, 11200.00, 12, TIMESTAMP '2025-10-31 14:00:00'),
-    (2, 123, (SELECT id FROM products WHERE nome = 'Fundo XPTO'), 5000.00, 5800.00, 6, TIMESTAMP '2025-09-15 10:30:00');
+-- INSERT INTO simulacoes (id, clienteId, produto_id, valorInvestido, valorFinal, prazoMeses, dataSimulacao) VALUES
+--     (1, 123, (SELECT id FROM products WHERE nome = 'CDB Caixa 2026'), 10000.00, 11200.00, 12, TIMESTAMP '2025-10-31 14:00:00'),
+--     (2, 123, (SELECT id FROM products WHERE nome = 'Fundo XPTO'), 5000.00, 5800.00, 6, TIMESTAMP '2025-09-15 10:30:00');
 
 -- Cliente para o endpoint /perfil-risco/{clienteId}
 INSERT INTO clients (id, nome, cpf, email, perfil_risco, pontuacao_risco, preferencia_investimento, volume_total_investido, frequencia_movimentacoes, data_cadastro) VALUES
